@@ -1,0 +1,40 @@
+{% extends "base/base.html" %}
+{% block title %}新規投稿画面{% endblock %}
+
+
+
+{% block content %}
+<hr>
+<h2>新規メニュー作成画面</h2>
+<hr>
+<section>
+   
+
+    <form action="{% url 'create-subtraining' training.pk %}"  method="POST">
+        {% csrf_token %}
+            <div class="mt-3">
+            <label for="{{form.title.id_for_label}}">タイトル</label><br>
+            {{form.title}}<br>
+            </div>
+            
+            <label for="{{form.weight.id_for_label}}">重量</label><br>
+            {{form.weight}}<br>
+
+             <label for="{{form.set_number.id_for_label}}">セット数</label><br>
+             {{form.set_number}}<br>
+            <label for="{{form.rep_number.id_for_label}}">レップ数</label><br>
+                {{form.rep_number}}<br>
+                <label for="{{form.help_training.id_for_label}}">補助トレ</label><br>
+                {{form.help_training}}<br>
+                
+                    <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+
+
+</section>
+
+
+
+
+
+{% endblock %}

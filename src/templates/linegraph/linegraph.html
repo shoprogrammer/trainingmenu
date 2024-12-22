@@ -1,0 +1,194 @@
+{% extends "base/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}グラフ表示です
+ 
+
+
+<h2>合計負荷重量の推移</h2>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <div>
+    <canvas id="myChart"></canvas>
+  </div>
+ 
+
+{{ dates | json_script:"dates-data" }}
+{{ total_weights | json_script:"total-weight-data" }}
+  <script>
+    const ctx = document.getElementById('myChart');
+    
+    
+  const labels = JSON.parse(document.getElementById('dates-data').textContent);
+  const data = JSON.parse(document.getElementById('total-weight-data').textContent);
+
+
+
+
+
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        // 日付入れたい
+        labels: labels,
+
+        datasets: [{
+          label: '合計負荷重量(kg)',
+          data: data,
+          borderColor: 'rgba(75, 192, 192, 1)', 
+          backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+          borderWidth: 2,
+          tension: 0.1, 
+        }]
+      },
+      options: {
+        scales: {
+            x: {
+                title: {
+                    display: true,
+                    text: '日付'
+                }
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: '合計負荷重量 (kg)'
+                },
+                beginAtZero: true
+            }
+        }
+    }
+});
+  </script>
+</script>
+
+
+<h2>メインの負荷重量</h2>
+
+
+<div>
+  <canvas id="mymainChart"></canvas>
+</div>
+
+
+{{ dates | json_script:"maindates-data" }}
+{{ maintotal_weights | json_script:"maintotal-weight-data" }}
+<script>
+  const main = document.getElementById('mymainChart');
+  
+  
+const mainlabels = JSON.parse(document.getElementById('maindates-data').textContent);
+const maindata = JSON.parse(document.getElementById('maintotal-weight-data').textContent);
+
+
+
+
+
+
+  new Chart(main, {
+    type: 'line',
+    data: {
+      // 日付入れたい
+      labels: mainlabels,
+
+      datasets: [{
+        label: '合計負荷重量(kg)',
+        data: maindata,
+        borderColor: 'rgba(75, 192, 192, 1)', 
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+        borderWidth: 2,
+        tension: 0.1, 
+      }]
+    },
+    options: {
+      scales: {
+          x: {
+              title: {
+                  display: true,
+                  text: '日付'
+              }
+          },
+          y: {
+              title: {
+                  display: true,
+                  text: '合計負荷重量 (kg)'
+              },
+              beginAtZero: true
+          }
+      }
+  }
+});
+</script>
+</script>
+
+
+
+
+<h2>サブの負荷重量</h2>
+
+
+<div>
+  <canvas id="mysubChart"></canvas>
+</div>
+
+
+{{ dates | json_script:"subdates-data" }}
+{{ subtotal_weights | json_script:"subtotal-weight-data" }}
+<script>
+  const sub = document.getElementById('mysubChart');
+  
+  
+const sublabels = JSON.parse(document.getElementById('subdates-data').textContent);
+const subdata = JSON.parse(document.getElementById('subtotal-weight-data').textContent);
+
+
+
+
+
+
+  new Chart(sub, {
+    type: 'line',
+    data: {
+      // 日付入れたい
+      labels: sublabels,
+
+      datasets: [{
+        label: '合計負荷重量(kg)',
+        data: subdata,
+        borderColor: 'rgba(75, 192, 192, 1)', 
+        backgroundColor: 'rgba(75, 192, 192, 0.2)', 
+        borderWidth: 2,
+        tension: 0.1, 
+      }]
+    },
+    options: {
+      scales: {
+          x: {
+              title: {
+                  display: true,
+                  text: '日付'
+              }
+          },
+          y: {
+              title: {
+                  display: true,
+                  text: '合計負荷重量 (kg)'
+              },
+              beginAtZero: true
+          }
+      }
+  }
+});
+</script>
+</script>
+
+
+
+
+
+
+
+
+{% endblock %}

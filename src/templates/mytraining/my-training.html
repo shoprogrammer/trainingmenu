@@ -1,0 +1,67 @@
+{% extends "base/base.html" %}
+{% block title %}自分のトレ一覧{% endblock %}
+{% block content %}
+<h1>自分のトレーニング一覧です</h1>
+<h2>あなたの総負荷重量は：{{weight_totaltraining}}kg</h2>
+        <section>
+        <table class="table">
+            <thead>
+                <tr>
+                        <th scope="col">タイトル</th>
+                     
+                        <th scope="col">内容</th>
+                        <th scope="col">作成日時</th>
+                        <th scope="col">メインの負荷重量</th>
+                        <th scope="col">サブの負荷重量</th>
+                        <th scope="col">トータルの負荷重量</th>
+                </tr>
+
+
+            </thead>
+        
+                <tbody>
+        {% for training in trainings %}
+                <tr>
+                        <th scope="col"><a href={% url 'detail-training' training.pk %}>{{training.title}}</th></a>
+                        
+                        <th scope="col">{{training.content}}</th>
+                        <th scope="col">{{training.created_at}}</th>
+                        <th scope="col">
+                                {% if training.main_total_weight == None %}
+                                        0kg
+                                {% else %}
+                                        {{training.main_total_weight}}kg
+                                {% endif %}
+                        </th>
+                        <th scope="col">
+                                {% if training.sub_total_weight == None %}
+                                        0kg
+                                {% else %}
+                                        {{training.sub_total_weight}}kg
+                                {% endif %}
+                                
+                               
+                        </th>
+
+                        <th scope="col">
+                        {% if training.total_total_weight == None %}
+                                0kg
+                        {% else %}
+                                {{training.total_total_weight}}kg
+                        {% endif %}
+                        </th>
+
+
+
+                </tr>
+
+        {% endfor %}
+
+                </tbody>
+            </table>
+        </section>
+
+        <a href="{% url "list-training" %}" class="btn btn-primary">みんなのメニュー</a>
+
+
+        {% endblock %}

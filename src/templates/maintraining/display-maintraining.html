@@ -1,0 +1,37 @@
+{% extends "base/base.html" %}
+{% block title %}詳細画面{% endblock %}
+
+
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+            <th scope="col">タイトル</th>
+            <th scope="col">重量</th>
+            <th scope="col">セット数</th>
+            <th scope="col">レップ数</th>
+    </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+            <th scope="col">{{maintraining.title}}</th>
+            <th scope="col">{{maintraining.weight}}</th>
+            <th scope="col">{{maintraining.set_number}}</th>
+            <th scope="col">{{maintraining.rep_number}}</th>
+        </tr>
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends "base/base.html" %}
+{% block title %}詳細画面{% endblock %}
+
+
+
+{% block content %}
+{% load social_share %}
+{% post_to_twitter "新規メニュー作成. Check it out!" object_or_url "Twitt" %}
+
+
+
+
+    <table class="table">
+        <thead>
+            <th scope="col">タイトル</th>
+           
+            <th scope="col">内容</th>
+            <th scope="col">作成日時</th>
+            <th scope="col">更新日時</th>
+            <th scope="col">総負荷重量</th>
+
+    </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+            <th scope="col">{{training.title}}</th>
+     
+            <th scope="col">{{training.content}}</th>
+            <th scope="col">{{training.created_at}}</th>
+            <th scope="col">{{training.updated_at}}</th>
+            <th scope="col">{{weight_total}}kg</th>
+
+        </tr>
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+
+    {% if training.user == request.user %}
+
+
+    <div class="d-flex gap-2">
+    <form action="{% url 'delete-training' training.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">削除</button>
+    </form>
+
+
+
+    <div >
+    <a href="{% url 'edit-training' training.pk %}" class="btn btn-primary">更新</a>
+    </div></div>
+    {% endif %}
+
+<h2>メイントレ一覧</h2>
+<h2>合計重量:{{weight_maintraining}}</h2>
+{% if training.user == request.user %}
+<a href="{% url 'create-maintraining' training.pk %}" class="btn btn-primary"><i class="bi bi-plus-square"></i></a>
+{% endif %}
+
+{% for maintraining in maintrainings %}
+        
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title"> <a href={% url 'detail-maintraining' training.pk maintraining.pk %}>トレ名: {{maintraining.title}}</a></h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">重量:{{maintraining.weight}}</h6>
+            <h6 class="card-subtitle mb-2 text-body-secondary">セット数:{{maintraining.set_number}}</h6>
+            <p class="card-text"> レップ数:   {{maintraining.rep_number}}</p>
+            <p class="card-text"> RPE:   {{maintraining.rm}}</p>
+            <p class="card-text"> コメント:   {{maintraining.content}}</p>
+{% if training.user == request.user %}
+            <div class="d-flex">
+            <form action="{% url 'delete-maintraining' training.pk maintraining.pk %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger" name="delete" value="1">削除</button>
+            </form>
+            <a href="{% url 'edit-maintraining' training.pk maintraining.pk %}"class="btn btn-primary">編集</a>
+          </div>
+{% endif %}
+        </div></div>
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h2>サブトレ一覧</h2>
+<h2>総負荷重量:{{weight_subtraining}}</h2>
+{% if training.user == request.user %}
+<a href="{% url 'new-subtraining' training.pk %}" class="btn btn-primary"><i class="bi bi-plus-square"></i></a>
+{% endif %}
+
+
+
+
+{% for subtraining in subtrainings %}
+
+
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"> <a href={% url 'detail-subtraining' training.pk subtraining.pk %}>トレ名: {{subtraining.title}}</a></h5>
+      <p class="card-text"> 重量:   {{subtraining.weight}}</p>
+
+      <h6 class="card-subtitle mb-2 text-body-secondary">セット数:{{subtraining.set_number}}</h6>
+      <p class="card-text"> レップ数:   {{subtraining.rep_number}}</p>
+
+      <p class="card-text">
+      {% if subtraining.help_training == True %}
+      補助あり
+      {% else %}
+      補助なし
+      {% endif %}
+      </p>
+
+
+
+     
+{% if training.user == request.user %}
+      <div class="d-flex">
+      <form action="{% url 'delete-subtraining' training.pk subtraining.pk  %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger" >削除</button>
+
+      </form>
+
+
+      <a href="{% url 'edit-subtraining' training.pk subtraining.pk %}"class="btn btn-primary">編集</a>
+      </div>
+{% endif %}
+    </div>
+  </div>
+
+{% endfor %}
+
+
+
+{% endblock %}

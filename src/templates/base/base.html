@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{% load social_share %}
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/allauth.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- ナビゲーションバー -->
+<nav class="navbar bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <!-- 左側のタイトル -->
+      
+      <a class="navbar-brand text-white" href="#"><h2>パワーリフティングmemo</h2></a>
+        
+        {% if user.is_authenticated %}
+        <p class="text-light">ようこそ{{request.user}}さん</p>
+        <a href="{% url 'profile-update' user.pk %}">プロフィール</a>
+
+        {% else %}
+        <p class="text-light">ようこそゲストさん</p>
+        {% endif %}
+
+      <!-- template.tags test -->
+      <!-- {% load accounts_user %}
+      {{request.user|user_display}} -->
+
+
+
+
+      <!-- 右側のドロップダウンメニュー -->
+      <div class="dropdown ms-auto">
+        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+          メニュー
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+                          
+          </a></li>
+          {% if user.is_authenticated %}
+          <li><a class="dropdown-item" href="{% url 'account_logout' %}">ログアウト</a></li>
+          <li><hr class="dropdown-divider"></li>          
+          {% else %}  
+
+        <li><a class="dropdown-item" href="{% url 'account_signup' %}">サインアップ</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'account_login' %}">ログイン</a></li>
+        <li><hr class="dropdown-divider"></li>
+      
+        </ul>
+      </div>
+        {% endif %}
+  
+    </div>
+  </nav>
+      
+    <title>{% block title %}{% endblock %}</title>
+
+
+        </head>
+        <body>
+
+        <main>
+            <div class="container">
+                <div class="mb-3">
+
+        {% block content %}{% endblock %}
+
+            </div>
+          </div>
+        </main>
+
+
+
+
+
+
+
+
+        <footer class="bg-primary">
+
+            <div class="container">
+                
+                <a href="{% url 'list-training' %}" class="btn btn-primary">一覧</a>
+                <a href="{% url 'create-training' %}" class="btn btn-primary">作成</a>
+                <a href="{% url 'new-ipfpoint' %}" class="btn btn-primary">GL計算</a>
+                <a href="{% url 'total-score' %}" class="btn btn-primary">totalランキング</a>
+                <a href="{% url 'gl-points' %}" class="btn btn-primary">GLpointsランキング</a>
+                <a href="{% url 'rm-list' %}" class="btn btn-primary">RM一覧表</a>
+                <a href="{% url 'line-graph' %}" class="btn btn-primary">グラフ表示</a>
+                <a href="{% url 'program' %}" class="btn btn-primary">プログラム</a>
+
+
+                <div class="text-center">
+                <div class="text-white">
+                  <h3> Aoyama Gakuin University Powerlifting Club </h3>
+
+              </div></div>
+            </div>
+
+         
+
+
+        </footer>
+
+
+        </body>
+        </html>

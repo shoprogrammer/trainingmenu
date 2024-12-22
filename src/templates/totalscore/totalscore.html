@@ -1,0 +1,99 @@
+{% extends "base/base.html" %}
+
+
+{% block title %}ランキング{% endblock %}
+
+
+{% block content %}
+<h2>合計重量ランキング</h2>
+<h2> 
+    {% if new_gender == "m" %}
+        男性を表示しています
+    {% else %}
+        女性を表示しています
+    {% endif %}
+    </h2>
+    
+<form action = {% url 'switch-totalscore' %} method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">
+        {% if new_gender == "m" %}
+            女性に変更
+        {% else %}
+            男性に変更
+        {% endif %}
+
+
+
+    </button>
+</form>
+
+
+
+<section>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th scope="col">順位</th>             
+                    <th scope="col">ユーザーネーム</th>
+                    <th scope="col">合計重量</th>
+                    <th scope="col">体重</th>
+                    <th scope="col">所属先</th>
+
+                
+
+                </tr>
+
+
+
+            </thead>
+                <tbody>
+                    {% for profile in profiles %}
+
+                    <tr>
+                        <th scope="col">{{forloop.counter}}</th>             
+                        <th scope="col">{{profile.username}}
+                        </th>
+                        <th scope="col">{{profile.total_score}}kg
+                        </th>
+                        <th scope="col">{{profile.weight}}kg</th>
+                        <th scope="col">{{profile.affiliation}}</th>
+
+
+                    </tr>
+                </tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+</table>
+
+</section>
+{% endblock %}

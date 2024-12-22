@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <title>Powerlifting Program</title>
+</head>
+<body>
+    <nav class="navbar bg-primary" data-bs-theme="dark">
+        <div class="container-fluid">
+          <!-- 左側のタイトル -->
+          
+          <a class="navbar-brand text-white" href="#"><h2>パワーリフティングmemo</h2></a>
+            
+            {% if user.is_authenticated %}
+            <p class="text-light">ようこそ{{request.user}}さん</p>
+            <a href="{% url 'profile-update' user.pk %}">プロフィール</a>
+    
+            {% else %}
+            <p class="text-light">ようこそゲストさん</p>
+            {% endif %}
+        </nav>
+    <div class="text-center">
+    <h2>おすすめのプログラムを紹介します。</h2>
+    
+
+    <h2><div id ='js-question'>質問</div></h2><hr>
+
+    <tl>
+
+    <button  type="button" class="btn btn-primary">aaa</button>
+    <button  type="button" class="btn btn-primary">iii</button>
+    <button  type="button" class="btn btn-primary">uuu</button>
+
+
+
+<hr>
+<!-- おすすめ表示 -->
+     <h2>
+            <div id = 'recommend'></div>
+      </h2>
+    </div>
+
+
+
+    <footer class="bg-primary">
+
+        <div class="container">
+            
+            <a href="{% url 'list-training' %}" class="btn btn-primary">一覧</a>
+            <a href="{% url 'create-training' %}" class="btn btn-primary">作成</a>
+            <a href="{% url 'new-ipfpoint' %}" class="btn btn-primary">GL計算</a>
+            <a href="{% url 'total-score' %}" class="btn btn-primary">totalランキング</a>
+            <a href="{% url 'gl-points' %}" class="btn btn-primary">GLpointsランキング</a>
+            <a href="{% url 'rm-list' %}" class="btn btn-primary">RM一覧表</a>
+            <a href="{% url 'line-graph' %}" class="btn btn-primary">グラフ表示</a>
+            <a href="{% url 'program' %}" class="btn btn-primary">プログラム</a>
+
+
+            <div class="text-center">
+            <div class="text-white">
+              <h3> Aoyama Gakuin University Powerlifting Club </h3>
+
+          </div></div>
+        </div>
+
+     
+
+
+    </footer>
+
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+
+const quiz = [
+        {
+            question: 'あなたのGLpointsは？',
+            answers: ['~40','40~50','50~'],
+        },
+        {
+            question:'あなたの精神力は？',
+            answers: ['弱い','普通','強い'],
+        },
+        {
+            question:'あなたの週のトレーニング日数は？',
+            answers: ['三日未満','三日','四日以上'],
+        },
+
+
+
+];
+
+const quizLength = quiz.length;
+let quizIndex = 0;
+let total_score = 0;
+
+
+
+let selectresults = []
+const $button = document.getElementsByTagName('button');
+
+
+
+const setupQuiz = () =>{
+
+document.getElementById('js-question').textContent = quiz[quizIndex].question;
+let buttonIndex = 0;
+let buttonLength = $button.length;
+while(buttonIndex < buttonLength){
+    $button[buttonIndex].textContent = quiz[quizIndex].answers[buttonIndex];
+    buttonIndex++;
+
+}
+}
+
+
+
+
+
+setupQuiz();
+
+
+
+
+const clickHandler = (e) => {
+
+    
+   
+    quizIndex++;
+
+    if(quizIndex < quizLength){
+
+        setupQuiz();
+    }else{
+        
+        console.log(total_score)
+        console.log('終了')
+        window.alert('終了')
+        
+        if(3<=total_score && total_score<5){
+
+            document.getElementById('recommend').innerHTML = `
+            <p>あなたにおすすめのプログラムです</p>
+            <a href="https://stronglifts.com/stronglifts-5x5/">5×5のプログラム</a>                                                `
+            
+        }else if(5<=total_score && total_score<7){
+
+            document.getElementById('recommend').innerHTML = `
+            <p>あなたにおすすめのプログラムです</p>
+            <a href="https://www.tuffwraps.com/ja-jp/blogs/news/implementing-the-texas-method-for-powerlifting-success">テキサスメゾットプログラム</a>  `
+          
+        }else if(7<=total_score && total_score<=9){
+            document.getElementById('recommend').innerHTML = `
+            <p>あなたにおすすめのプログラムです</p>
+            <a href="https://www.smolovjr.com/smolov-squat-program/#google_vignette">テキサスメゾットプログラム</a>  `
+            console.log('あなたは強いです')
+        }
+    
+
+   
+
+
+}
+};
+
+
+
+
+$button[0].addEventListener('click',(e) =>{
+    total_score += 1;
+    console.log(total_score)
+    clickHandler(e);
+   
+})
+
+$button[1].addEventListener('click',(e) =>{
+
+    total_score += 2;      
+    console.log(total_score)
+    clickHandler(e);
+   
+
+})
+
+$button[2].addEventListener('click',(e) =>{
+
+    total_score += 3;                     
+    console.log(total_score)
+
+    clickHandler(e);
+  
+
+})
+
+
+
+
+    
+});
+</script>
+    
+</body>
+</html>

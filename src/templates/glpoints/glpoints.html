@@ -1,0 +1,86 @@
+{% extends "base/base.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+<h2>glpointsランキング</h2>
+
+
+<section>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th scope="col">順位</th>             
+                <th scope="col">ユーザーネーム</th>
+                <th scope="col">GLpoints</th>
+                <th scope="col">性別</th>
+
+                <th scope="col">体重</th>
+                <th scope="col">所属先</th>
+
+            
+
+            </tr>
+
+
+
+        </thead>
+            <tbody>
+                {% for profile in profiles %}
+
+                <tr>
+                    <th scope="col">{{forloop.counter}}</th>             
+                    <th scope="col">{{profile.username}}
+                    </th>
+                    <th scope="col">{{profile.gl_point}}points
+                    </th>
+                    <th scope="col">
+                        {% if profile.gender == "m" %}
+                        男性
+                        {% else %}
+                        女性
+                        {% endif %}
+
+
+
+                    </th>
+
+                    <th scope="col">{{profile.weight}}kg</th>
+                    <th scope="col">{{profile.affiliation}}</th>
+
+
+                </tr>
+            </tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+</table>
+
+</section>
+{% endblock %}

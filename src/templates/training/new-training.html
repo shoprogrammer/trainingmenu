@@ -1,0 +1,38 @@
+{% extends "base/base.html" %}
+{% block title %}新規投稿画面{% endblock %}
+
+
+
+{% block content %}
+<hr>
+<h2>新規メニュー作成画面</h2>
+<hr>
+<section>
+    
+    <form action="{% url 'create-training' %}"  method="POST">
+        {% csrf_token %}
+            <div class="mt-3">
+            <label for="{{form.title.id_for_label}}">タイトル</label><br>
+            {{form.title}}<br>
+            </div>
+          
+                    <label for="{{form.content.id_for_label}}">内容</label><br>
+                     {{form.content}}<br>
+
+                    {% bootstrap_javascript jquery='full' %}
+                    {{ form.media }}
+
+                     <label for="{{form.date.id_for_label}}">時間</label><br>
+                     {{form.date}}<br>
+
+                    <button type="submit" class="btn btn-primary">保存</button>
+    </form>
+
+
+</section>
+
+
+
+
+
+{% endblock %}

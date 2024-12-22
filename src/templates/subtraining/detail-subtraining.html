@@ -1,0 +1,48 @@
+{% extends "base/base.html" %}
+{% block title %}詳細画面{% endblock %}
+
+
+
+{% block content %}
+
+    <table class="table">
+        <thead>
+            <th scope="col">タイトル</th>
+            <th scope="col">重量</th>
+            <th scope="col">セット数</th>
+            <th scope="col">レップ数</th>
+            <th scope="col">補助</th>
+    </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+            <th scope="col">{{subtraining.title}}</th>
+            <th scope="col">{{subtraining.weight}}</th>
+            <th scope="col">{{subtraining.set_number}}</th>
+            <th scope="col">{{subtraining.rep_number}}</th>
+            <th scope="col">
+                {% if subtraining.help_training == True %}
+                補助あり
+                {% else %}
+                なし
+                {% endif %}
+
+
+            </th>
+        </tr>
+        </tbody>
+
+
+
+
+
+
+
+    </table>
+{% if request.user == training.user %}
+   <a href="{% url 'edit-subtraining' training.pk subtraining.pk %}">編集</a>
+{% endif %}
+
+
+{% endblock %}
